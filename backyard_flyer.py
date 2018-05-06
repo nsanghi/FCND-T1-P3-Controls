@@ -48,6 +48,8 @@ class ControlsFlyer(UnityDrone):
         self.register_callback(MsgID.ATTITUDE, self.attitude_callback)
         self.register_callback(MsgID.RAW_GYROSCOPE, self.gyro_callback)
 
+        self.thrust_cmd = 0.0
+
     def position_controller(self):
         (self.local_position_target,
          self.local_velocity_target,
@@ -168,6 +170,8 @@ class ControlsFlyer(UnityDrone):
         #print("waypoint transition")
         self.waypoint_number = self.waypoint_number + 1
         self.target_position = self.all_waypoints.pop(0)
+        #self.local_position_target = np.array((self.target_position[0], self.target_position[1], self.target_position[2]))
+        #self.local_position_target = np.array([0.0, 0.0, -3.0])
         self.flight_state = States.WAYPOINT
 
     def landing_transition(self):
